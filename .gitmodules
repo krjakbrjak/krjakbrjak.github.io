@@ -1,0 +1,18 @@
+[submodule "code/fastapi_mfa_example"]
+	path = code/fastapi_mfa_example
+	url = https://github.com/krjakbrjak/fastapi_mfa_example.git
+[submodule "code/gpio-sysfs-simulator"]
+	path = code/gpio-sysfs-simulator
+	url = https://github.com/krjakbrjak/gpio-sysfs-simulator.git
+[submodule "code/offscreen_rendering"]
+	path = code/offscreen_rendering
+	url = https://github.com/krjakbrjak/offscreen_rendering.git
+[submodule "code/figma_playground"]
+	path = code/figma_playground
+	url = https://github.com/krjakbrjak/figma_playground.git
+[submodule "code/packer_templates"]
+	path = code/packer_templates
+	url = https://github.com/krjakbrjak/packer_templates.git
+[submodule "code/vm-tool"]
+	path = code/vm-tool
+	url = https://github.com/krjakbrjak/vm-tool.git

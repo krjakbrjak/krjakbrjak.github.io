@@ -2,7 +2,14 @@
 layout: post
 title:  "Automating the Building of VMs with Packer"
 date:   2024-06-14
-categories: jekyll update
+categories:
+- devops
+- automation
+tags:
+- packer
+- vm
+- devops
+- infrastructure
 ---
 
 ## Introduction
@@ -23,7 +30,7 @@ The next important question is choosing the Linux distro. One of the most popula
 Traditionally, to support unattended installations, so-called _preseed files_ were used. However, in recent releases, these have been deprecated in favor of [autoinstall](https://canonical-subiquity.readthedocs-hosted.com/en/latest/intro-to-autoinstall.html), a tool that allows for unattended OS installations with the help of cloud-init. Instead of booting an ISO image and manually selecting options, one can describe the system installation in a YAML file (the reference can be found here) and boot the system with specific options. Internally, cloud-init will start and check for special files, meta-data, and user-data, in the specified location. The only drawback is that this solution is available for server releases. However, here is a [link](https://github.com/canonical/autoinstall-desktop/blob/main/README.md) to official Canonical user-data files that can be used as a reference for installing the desktop environment.
 The following is an example of `user-data` that was used to prepare the server:
 
-```YAML
+```yaml
 #cloud-config
 autoinstall:
   version: 1
@@ -53,26 +60,40 @@ It has a very basic structure where basically only the user is specified. Extra 
 
 After that the only thing that is left to do is to tell `autoinstall` where this configuration files can be found. With Packer it is very easy as it will start this server automatically. The following is the relevant part of the packer build config:
 
-```HCL2
+```hcl
   http_directory = "http"
   boot_command = [
     "c",
-    "linux /casper/vmlinuz --- autoinstall ds='nocloud-net;s=http://{% raw %}{{ .HTTPIP }}:{{ .HTTPPort }}{% endraw %}/server' ",
+    "linux /casper/vmlinuz --- autoinstall ds='nocloud-net;s=http://{% raw %}{{ .HTTPIP }}:{{ .HTTPPort }}{% endraw %}/' ",
     "<enter><wait>",
     "initrd /casper/initrd<enter><wait>",
     "boot<enter>"
   ]
 ```
 
-It specifies the folder which packer's server will use to serve the `autoinstall` config files, and it also specifies the boot command. That is basically everything that is required to build the Ubuntu server VM.
+Packer will automatically start an HTTP server and substitute the IP and port in the boot command. The server will serve files from the root (`/`). You have two options for providing the `autoinstall` configuration files:
 
-There are also releases of so-called [cloud images](https://cloud-images.ubuntu.com/), which are Ubuntu images optimized to run in the public cloud. These images are already shipped with the `cloud-init` installed. And that makes it even easier to unattendedly install the OS. According to the [documentation](https://cloudinit.readthedocs.io/en/21.1/topics/datasources/nocloud.html)
+1. Place the files (`user-data`, `meta-data`, etc.) in the same folder as your Packer manifest and set `http_directory` to point to that folder.
+2. Define the files directly in your Packer manifest using the `http_content` option, for example:
+
+  ```hcl
+  http_content = {
+    "/meta-data" = <<EOF
+    EOF
+    "/user-data" = <<EOF
+    # Paste your configuration here
+    EOF
+  }
+  ```
+
+Both approaches will make the configuration files available to the installer via HTTP, allowing for unattended installation.
+While the server image approach works well, it can be quite large and configuring autoinstall with custom boot commands can be cumbersome and error-prone. For a more streamlined experience, Ubuntu provides [cloud images](https://cloud-images.ubuntu.com/) that are specifically optimized for cloud environments. These images are lightweight, come with `cloud-init` pre-installed, and make unattended installations much simpler. With cloud images, you can leverage the flexibility and simplicity of `cloud-init` to automate OS setup without the need for complex boot commands or manual configuration steps. According to the [documentation](https://cloudinit.readthedocs.io/en/latest/reference/datasources/nocloud.html),
 
 > the data source `NoCloud` allows the user to provide user-data and meta-data to the instance without running a network service (or even without having a network at all).
 
 `meta-data` can be passed via SMBIOS “serial number” option. Since QEMU builder is used here, the `cloud-init` config can be passed via `-smbios` option (relevant part of a packer template):
 
-```
+```hcl
   qemuargs = [
     ["-smbios", "type=1,serial=ds=nocloud-net;s=http://{% raw %}{{ .HTTPIP }}:{{ .HTTPPort }}{% endraw %}/cloud/"]
   ]
@@ -80,7 +101,7 @@ There are also releases of so-called [cloud images](https://cloud-images.ubuntu.
  
 Finally, after the VMs images were prepared and built it is time to start them. ANd to make it easy, a template `Vagrantfile` is generated with the help of [`shell-local`](https://developer.hashicorp.com/packer/docs/post-processors/shell-local) post-processor:
 
-```
+```ruby
 Vagrant.configure(2) do |config|
   config.vm.box = "${var.vm_name}.box"
   config.vm.provider :qemu do |qe, override|

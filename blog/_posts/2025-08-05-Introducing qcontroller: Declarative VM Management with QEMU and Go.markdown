@@ -2,7 +2,17 @@
 layout: post
 title:  "Introducing qcontroller: Declarative VM Management with QEMU and Go"
 date:   2025-08-05
-categories: jekyll update
+categories:
+- linux
+- virtualization
+- automation
+tags:
+- go
+- qemu
+- vm
+- devops
+- infrastructure
+- orchestration
 ---
 {% assign network_utils = site.posts | where: "title", "Automating Bridge + TAP Networking with a Go Binary (No Bash, No Fuss)" | first %}
 {% assign qapi = site.posts | where: "title", "QEMU QAPI Client for Go — Native Code-Gen Straight from QEMU" | first %}
@@ -38,7 +48,7 @@ You can launch, start, stop, and query VMs declaratively using JSON config files
 
 ## 🔧 Architecture
 
-![Architecture diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/o9rrdo1t434v5x1pn57c.jpeg)
+![Architecture diagram](/images/posts/Introducing qcontroller: Declarative VM Management with QEMU and Go/architecture.jpeg)
 
 Each component plays a role:
 
@@ -78,7 +88,7 @@ This command will start all three components:
 Then hit the REST API (e.g. using swagger ui, that is hosted at `http://localhost:8080/v1/swagger/index.html`):
 
 
-![swagger UI snapshot](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rmyaucjrtpif1rf1tw9b.png)
+![swagger UI snapshot](/images/posts/Introducing qcontroller: Declarative VM Management with QEMU and Go/swagger.png)
 
 ## 📦 Bring Your Own Image
 One key motivation behind qcontroller is the ability to run _your own custom-built images_.

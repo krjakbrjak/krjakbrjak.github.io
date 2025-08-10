@@ -2,7 +2,13 @@
 layout: post
 title:  "Setting Up a Simple Two-Node Kubernetes Cluster in No Time"
 date:   2025-01-15
-categories: jekyll update
+categories:
+- devops
+- infrastructure
+tags:
+- kubernetes
+- devops
+- linux
 ---
 
 Kubernetes is now a crucial tool for developers. Regardless of the field of software development, Kubernetes will likely be involved. Even if you're not directly working on a service that must run in a Kubernetes environment, at some point you'll likely need to add a CI pipeline to a project, and that CI tool (e.g., Jenkins) will likely be deployed in Kubernetes. Therefore, it's important to quickly install Kubernetes for your needs. Of course, Kubernetes is a large tool with many details, which must be explored case by case. Additionally, the official Kubernetes documentation is the best source of information and helps immensely in resolving any questions. In this post, I will describe the necessary steps to install a basic two-node (control plane and worker) Kubernetes cluster.

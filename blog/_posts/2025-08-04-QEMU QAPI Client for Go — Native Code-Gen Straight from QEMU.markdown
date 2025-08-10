@@ -2,7 +2,17 @@
 layout: post
 title:  "QEMU QAPI Client for Go — Native Code-Gen Straight from QEMU"
 date:   2025-08-04
-categories: jekyll update
+categories:
+- linux
+- virtualization
+- automation
+tags:
+- go
+- qemu
+- code generation
+- vm
+- devops
+- infrastructure
 ---
 
 ## Ever glued together socat, raw JSON, and a prayer just to talk to QEMU from Go?

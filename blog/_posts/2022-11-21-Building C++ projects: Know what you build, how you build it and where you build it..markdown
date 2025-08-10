@@ -2,7 +2,15 @@
 layout: post
 title:  "Building C++ projects: Know what you build, how you build it and where you build it."
 date:   2022-11-21
-categories: jekyll update
+categories:
+- c++
+- development tools
+- cross-platform development
+tags:
+- cmake
+- filesystem
+- case-sensitivity
+- c++
 ---
 
 Arguably, [CMake](https://cmake.org/) is the standard tool to structure and build C++ projects. The tool is very easy and intuitive to use. But sometimes it might get tricky and some unexpected problems might pop up. And it might take a significant amount of time to understand what is going on. In this example I will show one of such problems I encountered recently. I tried to reproduce the problem with a very much simplified project (which can be found [here](https://github.com/krjakbrjak/building_cpp_projects)).

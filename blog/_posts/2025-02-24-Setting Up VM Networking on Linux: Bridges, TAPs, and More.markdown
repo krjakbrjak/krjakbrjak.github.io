@@ -2,14 +2,23 @@
 layout: post
 title:  "Setting Up VM Networking on Linux: Bridges, TAPs, and More"
 date:   2025-02-24
-categories: jekyll update
+categories:
+- networking
+- devops
+- linux
+tags:
+- vm
+- networking
+- linux
+- qemu
+- devops
 ---
 
 {% assign qemu_macos = site.posts | where: "title", "QEMU networking on macOS" | first %}
 
 ## Introduction
 
-Working directly on your computer and trying out new configurations is crucial for mastering new technologies. Experimenting with different libraries, frameworks, or applications often leads to situations where your system might not behave as expected. That’s why it’s a good idea to test these experiments in an isolated environment that won’t affect your host OS. Virtual machines (VMs) offer complete isolation and behave like separate physical machines. However, because a VM is essentially a “separate machine,” its networking must be configured properly to enable communication with the host—ideally bidirectional—as well as provide internet access. This post describes the necessary steps, such as creating a bridge and adjusting firewall rules, to enable networking.
+When learning new technologies, it's important to experiment without risking your main system. Virtual machines (VMs) let you safely test software in a completely separate environment, acting like independent computers. But since VMs are isolated, you need to set up their networking so they can talk to your host computer and access the internet. This post explains, step by step, how to configure VM networking on Linux—including creating a network bridge and setting up firewall rules—to make sure your VMs can communicate as needed.
 
 ## QEMU
 
@@ -22,7 +31,7 @@ qemu-system-x86_64 -machine q35 -accel kvm -m 2048 \
     -smbios type=1,serial=ds=nocloud;s=http://192.168.178.41:8000/
 ```
 
-In this example, the image is [ubuntu-22.04-server-cloudimg-amd64.img](https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img), a cloud image that conveniently comes with cloud-init pre-installed. The issue, as described in a previous article, is that QEMU by default starts an instance with a “user network” that is inaccessible from the host. Additionally, communication between VMs is not straightforward. While on macOS the [vmnet framework](https://developer.apple.com/documentation/vmnet) provides a solution, Linux doesn’t offer an out-of-the-box equivalent. However, you can easily achieve the desired setup by configuring a bridge and attaching a TAP device to it. This newly created TAP device can then be specified as the network interface when starting a VM. Let’s take a look at how to create this setup and address the key aspects needed to make it work.
+In this example, the image is [ubuntu-22.04-server-cloudimg-amd64.img](https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img), a cloud image that conveniently comes with `cloud-init` pre-installed. The issue, as described in a previous article, is that QEMU by default starts an instance with a “user network” that is inaccessible from the host. Additionally, communication between VMs is not straightforward. While on macOS the [vmnet framework](https://developer.apple.com/documentation/vmnet) provides a solution, Linux doesn’t offer an out-of-the-box equivalent. However, you can easily achieve the desired setup by configuring a bridge and attaching a TAP device to it. This newly created TAP device can then be specified as the network interface when starting a VM. Let’s take a look at how to create this setup and address the key aspects needed to make it work.
 
 ## Bridge + tap device
 
@@ -31,7 +40,9 @@ A network bridge is a virtual or physical device that connects two or more netwo
 * A bridge learns the MAC addresses of the devices connected to its interfaces.
 * It forwards traffic only to the appropriate interface based on these MAC addresses, reducing unnecessary network load.
 * Devices on a bridge can communicate without a router, as long as they are on the same subnet.
+
 You can create a bridge using the following command:
+
 ```bash
 sudo ip link add name ${BRIDGE_NAME} type bridge
 IFS='./' read -r a b c d mask <<< "${SUBNET}"
@@ -39,18 +50,18 @@ sudo ip addr add "$a.$b.$c.1/${mask}" dev ${BRIDGE_NAME}
 sudo ip link set ${BRIDGE_NAME} up
 ```
 
-A TAP (Terminal Access Point) device is a virtual network interface that operates at Layer 2 of the OSI model, allowing software to send and receive raw Ethernet frames. This makes it especially useful for virtual networking, VPNs, and emulation.
+A TAP device is a virtual network interface that operates at Layer 2 of the OSI model, allowing software to send and receive raw Ethernet frames. This makes it especially useful for virtual networking, VPNs, and emulation.
 
 * TAP devices act like physical Ethernet interfaces but exist entirely in software.
 * They are commonly used to connect virtual machines, containers, or VPNs to a network.
 * When an application writes to a TAP interface, it appears as if packets are coming from a real network device.
 You can create a TAP device with the following commands:
 
-    ```bash
-    sudo ip tuntap add dev ${TAP_DEVICE} mode tap
-    sudo ip link set ${TAP_DEVICE} up
-    sudo ip link set ${TAP_DEVICE} master ${BRIDGE_NAME}
-    ```
+```bash
+sudo ip tuntap add dev ${TAP_DEVICE} mode tap
+sudo ip link set ${TAP_DEVICE} up
+sudo ip link set ${TAP_DEVICE} master ${BRIDGE_NAME}
+```
 
 In this setup:
 

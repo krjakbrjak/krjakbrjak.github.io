@@ -2,7 +2,13 @@
 layout: post
 title:  "How to customize PostgreSQL Docker Initialization the Right Way"
 date:   2025-07-29
-categories: jekyll update
+categories:
+- devops
+- database
+tags:
+- postgresql
+- docker
+- devops
 ---
 
 Dockerizing Postgres is easy - until you need to initialize multiple databases with different dumps. Here is a clean way to do it using just a shell script.

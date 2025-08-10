@@ -2,7 +2,16 @@
 layout: post
 title:  "Automating Bridge + TAP Networking with a Go Binary (No Bash, No Fuss)"
 date:   2025-08-02
-categories: jekyll update
+categories:
+- linux
+- networking
+- automation
+tags:
+- qemu
+- go
+- devops
+- nftables
+- infrastructure
 ---
 
 {% assign other_post = site.posts | where: "title", "Setting Up VM Networking on Linux: Bridges, TAPs, and More" | first %}

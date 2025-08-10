@@ -2,7 +2,16 @@
 layout: post
 title:  "QEMU networking on macOS"
 date:   2024-06-18
-categories: jekyll update
+categories:
+- devops
+- macos
+- networking
+tags:
+- qemu
+- networking
+- macos
+- vm
+- devops
 ---
 
 ## Introduction
@@ -16,7 +25,7 @@ Setting up virtual machines (VMs) that can communicate with each other and are a
 ```shell
 qemu-system-x86_64 \
     -machine q35 -accel hvf -m 2048 \
-    -nographic -hda ./jammy-server-cloudimg-amd64.img \
+    -nographic -hda ./ubuntu-25.04-server-cloudimg-amd64.img \
     -smbios type=1,serial=ds='nocloud;s=http://192.168.178.37:8000/'
 ```
 
@@ -32,7 +41,7 @@ The primary drawback is that the VM cannot be accessed from the host or other VM
 ```shell
 qemu-system-x86_64 \
     -machine q35 -accel hvf -m 2048 \
-    -nographic -hda ./jammy-server-cloudimg-amd64.img \
+    -nographic -hda ./ubuntu-25.04-server-cloudimg-amd64.img \
     -smbios type=1,serial=ds='nocloud;s=http://192.168.178.37:8000/' \
     -netdev user,id=mynet0,hostfwd=tcp::2222-:22,hostfwd=tcp::8080-:80 \
     -device e1000,netdev=mynet0
@@ -47,7 +56,7 @@ On macOS, the [vmnet](https://developer.apple.com/documentation/vmnet) framework
 ```shell
 qemu-system-x86_64 \
     -machine q35 -accel hvf -m 2048 -nographic \
-    -hda ./jammy-server-cloudimg-amd64.img \
+    -hda ./ubuntu-25.04-server-cloudimg-amd64.img \
     -smbios type=1,serial=ds='nocloud;s=http://192.168.178.37:8000/' \
     -netdev vmnet-bridged,id=net0,ifname=en0 \
     -device virtio-net,netdev=net0
