@@ -1,1 +1,7 @@
-# krjakbrjak.github.io
+# Dev Notes
+
+## Run
+
+```shell
+docker compose up
+```
