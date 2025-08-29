@@ -1,0 +1,8 @@
+services:
+  jekyll:
+    image: jekyll/jekyll:latest
+    volumes:
+      - ./notes:/srv/jekyll
+    ports:
+      - 4000:4000
+    command: jekyll serve --host 0.0.0.0 --force-polling --livereload
