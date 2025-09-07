@@ -16,3 +16,6 @@
 [submodule "code/vm-tool"]
 	path = code/vm-tool
 	url = https://github.com/krjakbrjak/vm-tool.git
+[submodule "code/name_resolver"]
+	path = code/name_resolver
+	url = https://github.com/krjakbrjak/name_resolver.git
