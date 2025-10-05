@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Local DNS Resolution for Docker Containers in Development"
-date:   2025-08-05
+date:   2025-09-07
 categories:
 - devops
 - containers
