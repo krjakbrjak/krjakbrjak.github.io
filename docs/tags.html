@@ -3,14 +3,16 @@ layout: default
 title: "Tags"
 permalink: /tags/
 ---
-<h1>Tags</h1>
-<ul>
+
+<h1 class="page-heading">Tags</h1>
+
+<div class="tag-cloud">
   {% assign sorted_tags = site.tags | sort %}
   {% for tag in sorted_tags %}
-    <li>
-      <a href="/tags/{{ tag[0] | uri_escape }}/">
-        {{ tag[0] }} ({{ tag[1].size }})
+    <div class="tag-cloud-item">
+      <a class="tag-pill" href="{{ '/tags/' | append: tag[0] | uri_escape | append: '/' | relative_url }}">
+        {{ tag[0] }} <span style="opacity: 0.6;">({{ tag[1].size }})</span>
       </a>
-    </li>
+    </div>
   {% endfor %}
-</ul>
+</div>
