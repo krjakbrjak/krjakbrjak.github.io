@@ -1,0 +1,398 @@
+---
+---
+
+// ==========================================================================
+// 1. Override Minima SCSS variables (before import)
+// ==========================================================================
+
+$base-font-size:   17px;
+$base-font-weight: 400;
+$small-font-size:  $base-font-size * 0.8125;
+$base-line-height: 1.7;
+
+$text-color:       #1e293b;
+$background-color: #ffffff;
+$brand-color:      #2563eb;
+
+$grey-color:       #64748b;
+$grey-color-light: #e2e8f0;
+$grey-color-dark:  #334155;
+
+$content-width:    800px;
+$spacing-unit:     32px;
+
+$on-palm:          600px;
+$on-laptop:        800px;
+
+// ==========================================================================
+// 2. Import Minima (uses our variables, renders base + layout + syntax)
+// ==========================================================================
+
+@import "minima";
+
+// ==========================================================================
+// 3. Custom overrides (after import, so they win over Minima's rules)
+// ==========================================================================
+
+// --- Global transitions ---
+a {
+  transition: color 0.2s ease;
+  &:hover {
+    color: #1d4ed8;
+    text-decoration: none;
+  }
+  &:visited {
+    color: #1d4ed8;
+  }
+}
+
+// --- Headings: heavier weight ---
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+// --- Site header ---
+.site-header {
+  border-top: 3px solid $brand-color;
+  border-bottom: 1px solid $grey-color-light;
+  background-color: $background-color;
+}
+
+.site-title {
+  font-weight: 600;
+  letter-spacing: -0.5px;
+
+  &,
+  &:visited {
+    color: #0f172a;
+  }
+
+  &:hover {
+    color: $brand-color;
+    text-decoration: none;
+  }
+}
+
+.site-nav .page-link {
+  font-weight: 500;
+  color: #475569;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $brand-color;
+    text-decoration: none;
+  }
+}
+
+// --- Post cards (homepage) ---
+.post-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: $spacing-unit;
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background-color: #ffffff;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+
+  &:visited {
+    color: inherit;
+  }
+
+  &:hover {
+    border-color: #bfdbfe;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+    transform: translateY(-2px);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .post-meta {
+    margin-bottom: 0.35rem;
+  }
+
+  .post-description {
+    flex: 1;
+  }
+
+  .post-tags {
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+}
+
+.post-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.35;
+  margin-bottom: 0.35rem;
+}
+
+// --- Post list (fallback / other pages) ---
+.post-list {
+  > li {
+    padding-bottom: $spacing-unit;
+    border-bottom: 1px solid #f1f5f9;
+    margin-bottom: $spacing-unit;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.post-meta {
+  font-size: $small-font-size;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.post-link {
+  font-weight: 600;
+  color: #0f172a;
+  transition: color 0.2s ease;
+
+  &:visited {
+    color: #0f172a;
+  }
+
+  &:hover {
+    color: $brand-color;
+    text-decoration: none;
+  }
+}
+
+// Post description shown under title on homepage
+.post-description {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-top: 0.35rem;
+}
+
+// --- Tag pills (shared between homepage, post page, tags page) ---
+.tag-pill {
+  display: inline-block;
+  padding: 0.15em 0.55em;
+  border-radius: 9999px;
+  background-color: #eff6ff;
+  color: #2563eb;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid #dbeafe;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:visited {
+    color: #2563eb;
+  }
+
+  &:hover {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+    text-decoration: none;
+    border-color: #bfdbfe;
+  }
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin-top: 0.5rem;
+}
+
+// --- Post page ---
+.post-title {
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.15;
+}
+
+.post-header {
+  margin-bottom: $spacing-unit * 1.25;
+  padding-bottom: $spacing-unit * 0.75;
+  border-bottom: 1px solid $grey-color-light;
+}
+
+.post-content {
+  h2 {
+    margin-top: 2.5rem;
+  }
+
+  h3 {
+    margin-top: 2rem;
+  }
+
+  h4 {
+    margin-top: 1.5rem;
+  }
+
+  pre, code {
+    font-size: 0.875rem;
+  }
+}
+
+// --- Code blocks: cleaner look ---
+pre, code {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+}
+
+.highlighter-rouge .highlight {
+  background: #f8fafc;
+}
+
+// --- Blockquotes: blue accent ---
+blockquote {
+  border-left: 4px solid $brand-color;
+  color: #475569;
+  background-color: #f8fafc;
+  padding: 1rem 1.25rem;
+  border-radius: 0 6px 6px 0;
+}
+
+// --- Tags page: tag cloud ---
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin-left: 0;
+  padding: 0;
+}
+
+.tag-cloud-item .tag-pill {
+  font-size: 0.85rem;
+  padding: 0.3em 0.75em;
+}
+
+// --- Tag archive page ---
+.tag-archive-list {
+  list-style: none;
+  margin-left: 0;
+
+  > li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f1f5f9;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+// --- Footer ---
+.site-footer {
+  border-top: 1px solid $grey-color-light;
+  background-color: #f8fafc;
+}
+
+.footer-heading {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+// --- Reading time ---
+.reading-time {
+  color: #94a3b8;
+  font-size: $small-font-size;
+}
+
+// --- Post navigation (bottom of post) ---
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  padding-top: $spacing-unit;
+  margin-top: $spacing-unit;
+  border-top: 1px solid $grey-color-light;
+  font-size: 0.9rem;
+}
+
+.post-nav-label {
+  font-size: $small-font-size;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+// --- Page heading ---
+.page-heading {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+// --- Post list heading ---
+.post-list-heading {
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: $spacing-unit * 0.75;
+}
+
+// --- Subtle page fade-in ---
+.page-content {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// --- Table improvements ---
+table {
+  border-radius: 6px;
+  overflow: hidden;
+
+  th {
+    background-color: #eff6ff;
+    border-color: #e2e8f0;
+    font-weight: 600;
+  }
+}
+
+// --- Responsive adjustments ---
+@media screen and (max-width: $on-palm) {
+  .post-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .post-tags {
+    gap: 0.3em;
+  }
+
+  .tag-pill {
+    font-size: 0.7rem;
+  }
+
+  .post-nav {
+    flex-direction: column;
+    gap: 1rem;
+
+    > div:last-child {
+      text-align: left;
+    }
+  }
+}
