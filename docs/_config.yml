@@ -19,11 +19,16 @@
 # in the templates via {{ site.myvariable }}.
 
 title: krjakbrjak's Dev Notes
-email: nikita.vakula.dev@gmail.com
+email: programmistov.programmist@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   A collection of development notes, tutorials, and insights. Sharing knowledge on software engineering, coding best practices, and personal projects.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://krjakbrjak.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+lang: en
+author: Nikita Vakula
+google_site_verification: nXw4DM5lO82Lk9OkpB-R4gz1K-lKBYLc_uLZ-1KSOf8
+twitter:
+  card: summary
 linkedin_username: nvakula
 github_username:  krjakbrjak
 
@@ -31,6 +36,8 @@ github_username:  krjakbrjak
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 include:
   - _pages
