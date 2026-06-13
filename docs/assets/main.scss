@@ -373,10 +373,178 @@ table {
   }
 }
 
+// --- About page: open-source contributions ---
+// One bordered container; each project is a divided, collapsible row.
+.contrib-list {
+  margin: $spacing-unit 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.contrib-project {
+  border-top: 1px solid #e2e8f0;
+
+  &:first-child {
+    border-top: none;
+  }
+
+  &[open] {
+    background-color: #f8fafc;
+  }
+}
+
+.contrib-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.1rem;
+  cursor: pointer;
+  list-style: none; // hide the default disclosure marker (we draw our own)
+  user-select: none;
+  transition: background-color 0.2s ease;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  // Caret that rotates open (the +/- is reserved for the diffstat bar).
+  &::before {
+    content: "\25B8"; // ▸
+    display: inline-block;
+    width: 1em;
+    flex: 0 0 auto;
+    text-align: center;
+    color: $grey-color;
+    font-size: 0.8em;
+    line-height: 1;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  &:hover {
+    background-color: #f1f5f9;
+
+    .contrib-repo {
+      color: $brand-color;
+    }
+  }
+}
+
+.contrib-project[open] .contrib-summary::before {
+  transform: rotate(90deg);
+  color: $brand-color;
+}
+
+.contrib-repo {
+  flex: 1 1 auto;
+  color: #0f172a;
+  word-break: break-word;
+  transition: color 0.2s ease;
+
+  strong {
+    font-weight: 600;
+  }
+}
+
+// --- Diffstat (GitHub-style +/- lines bar) ---
+.diff-add {
+  color: #1a7f37;
+}
+
+.diff-del {
+  color: #cf222e;
+}
+
+.contrib-lines {
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.diff-bar {
+  font-family: "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+}
+
+// Project summary row: numbers + bar, pinned to the right.
+.contrib-stat {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.contrib-prs {
+  list-style: none;
+  margin: 0;
+  // Align PR titles under the project name (summary pad + marker + gap).
+  padding: 0 1.1rem 0.6rem 2.85rem;
+}
+
+.contrib-pr {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.45rem 0;
+  border-top: 1px solid #e9eef4;
+
+  &:first-child {
+    border-top: none;
+  }
+}
+
+.contrib-pr-title {
+  flex: 1 1 auto;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.contrib-pr-meta {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+
+  .contrib-lines {
+    font-weight: 500;
+  }
+}
+
+.contrib-date {
+  flex: 0 0 auto;
+  font-size: $small-font-size;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
 // --- Responsive adjustments ---
 @media screen and (max-width: $on-palm) {
   .post-card-grid {
     grid-template-columns: 1fr;
+  }
+
+  .contrib-pr {
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .diff-bar {
+    display: none;
+  }
+
+  .contrib-prs {
+    padding-left: 2.2rem;
+  }
+
+  .contrib-date {
+    font-size: 0.7rem;
   }
 
   .post-tags {
