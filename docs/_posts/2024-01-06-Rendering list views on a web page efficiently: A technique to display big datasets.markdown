@@ -13,6 +13,8 @@ tags:
 
 Recently, I needed to implement a web widget that displays a collection of items. In some cases, the collection happened to have 7 million items. Of course, adding 7 million divs would hang the browser. I started searching for existing solutions on the web. There were some implementations available, but they seemed to be heavy, bringing in unnecessary dependencies. Plus, I was just curious to try to implement it. That is why this post.
 
+<strong>UPD:</strong> I have since replaced the overlapping scrollbar described below with a single scroll container. The trick still works, but with the scrollbar on top the rows never receive a pointer event. See <a href="/frontend/performance/2026/08/07/Rendering-list-views-on-a-web-page-efficiently-A-technique-to-display-big-datasets-UPDATE.html">the update</a>.
+
 This article describes the concept of <strong>virtual scrolling</strong>—a technique for efficiently rendering large lists in web applications. If you’ve ever needed to display thousands or millions of items, this approach will help keep your app fast and responsive.
 
 ## Efficiently Displaying Large Collections on the Web
