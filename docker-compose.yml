@@ -1,6 +1,6 @@
 services:
   jekyll:
-    image: jekyll/jekyll:latest
+    image: jekyll/jekyll:4.2.2
     volumes:
       - ./docs:/srv/jekyll
     ports:
