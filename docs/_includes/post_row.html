@@ -1,0 +1,12 @@
+{%- assign row_date_format = include.date_format | default: "%m-%d" -%}
+<div class="post-row" data-text="{{ include.post.title | downcase | escape }}{% for tag in include.post.tags %} #{{ tag | replace: ' ', '-' | downcase | escape }}{% endfor %} {{ include.post.date | date: '%Y' }}">
+  <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: row_date_format }}</time>
+  <a class="post-row-title" href="{{ include.post.url | relative_url }}">{{ include.post.title | escape }}</a>
+  {%- if include.post.tags.size > 0 %}
+  <span class="post-row-tags">
+    {%- for tag in include.post.tags limit: 2 %}
+    <a href="{{ '/tags/' | append: tag | uri_escape | append: '/' | relative_url }}">#{{ tag | replace: " ", "-" | escape }}</a>
+    {%- endfor %}
+  </span>
+  {%- endif %}
+</div>

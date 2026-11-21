@@ -1,0 +1,27 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') document.documentElement.setAttribute('data-theme', saved);
+      } catch (e) {}
+    })();
+  </script>
+  {%- seo -%}
+  {%- assign asset_version = site.time | date: "%s" -%}
+  <link rel="preload" href="{{ '/assets/fonts/ibm-plex-sans-latin-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ '/assets/fonts/space-grotesk-latin-wght.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{ '/assets/css/fonts.css' | relative_url }}?v={{ asset_version }}">
+  <link rel="stylesheet" href="{{ '/assets/css/tokens.css' | relative_url }}?v={{ asset_version }}">
+  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ asset_version }}">
+  <link rel="stylesheet" href="{{ '/assets/css/lists.css' | relative_url }}?v={{ asset_version }}">
+  <link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}?v={{ asset_version }}">
+  <link rel="stylesheet" href="{{ '/assets/css/code.css' | relative_url }}?v={{ asset_version }}">
+  <link rel="stylesheet" href="{{ '/assets/css/highlight.css' | relative_url }}?v={{ asset_version }}">
+  <link rel="stylesheet" href="{{ '/assets/css/about.css' | relative_url }}?v={{ asset_version }}">
+  {%- feed_meta -%}
+  <script src="{{ '/assets/site.js' | relative_url }}?v={{ asset_version }}" defer></script>
+</head>

@@ -1,0 +1,12 @@
+<footer class="site-footer">
+  <div class="wrap site-footer-inner">
+    <span>{{ site.author | escape }}</span>
+    {%- if site.github_username %}
+    <a href="https://github.com/{{ site.github_username | uri_escape }}" rel="me">github</a>
+    {%- endif %}
+    {%- if site.linkedin_username %}
+    <a href="https://www.linkedin.com/in/{{ site.linkedin_username | uri_escape }}" rel="me">linkedin</a>
+    {%- endif %}
+    <a href="{{ '/feed.xml' | relative_url }}">rss</a>
+  </div>
+</footer>

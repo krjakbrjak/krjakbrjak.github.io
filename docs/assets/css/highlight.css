@@ -1,0 +1,122 @@
+/**
+ * Syntax highlighting styles for code blocks generated with the following command:
+ * `rougify style github`. See `https://github.com/rouge-ruby/rouge/blob/main/bin/rougify`
+ * for more information.
+ * The values of this file were adjusted to the styles of the blog.
+ */
+.highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: var(--color-text);
+  background-color: var(--color-code-background);
+}
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kt, .highlight .kv {
+  color: var(--color-code-keyword);
+}
+.highlight .gr {
+  color: var(--color-removed);
+}
+.highlight .gd {
+  color: var(--color-removed);
+  background-color: transparent;
+}
+.highlight .nb {
+  color: var(--color-code-name);
+}
+.highlight .nc {
+  color: var(--color-code-number);
+}
+.highlight .no {
+  color: var(--color-code-number);
+}
+.highlight .nn {
+  color: var(--color-code-number);
+}
+.highlight .sr {
+  color: var(--color-code-string);
+}
+.highlight .na {
+  color: var(--color-code-name);
+}
+.highlight .nt {
+  color: var(--color-code-name);
+}
+.highlight .gi {
+  color: var(--color-added);
+  background-color: transparent;
+}
+.highlight .ges {
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .kc {
+  color: var(--color-code-keyword);
+}
+.highlight .l, .highlight .ld, .highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: var(--color-code-number);
+}
+.highlight .sb {
+  color: var(--color-code-string);
+}
+.highlight .bp {
+  color: var(--color-code-number);
+}
+.highlight .ne {
+  color: var(--color-code-name);
+}
+.highlight .nl {
+  color: var(--color-code-name);
+}
+.highlight .py {
+  color: var(--color-code-name);
+}
+.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm {
+  color: var(--color-text);
+}
+.highlight .o, .highlight .ow {
+  color: var(--color-text);
+}
+.highlight .gh {
+  color: var(--color-code-name);
+  font-weight: bold;
+}
+.highlight .gu {
+  color: var(--color-code-name);
+  font-weight: bold;
+}
+.highlight .s, .highlight .sa, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .sx, .highlight .s1, .highlight .ss {
+  color: var(--color-code-string);
+}
+.highlight .nd {
+  color: var(--color-code-name);
+}
+.highlight .nf, .highlight .fm {
+  color: var(--color-code-name);
+}
+.highlight .err {
+  color: inherit;
+  background-color: transparent;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cp, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: var(--color-code-comment);
+}
+.highlight .gl {
+  color: var(--color-code-comment);
+}
+.highlight .gt {
+  color: var(--color-code-comment);
+}
+.highlight .ni {
+  color: var(--color-text);
+}
+.highlight .si {
+  color: var(--color-text);
+}
+.highlight .ge {
+  color: var(--color-text);
+  font-style: italic;
+}
+.highlight .gs {
+  color: var(--color-text);
+  font-weight: bold;
+}

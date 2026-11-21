@@ -1,41 +1,54 @@
 ---
-layout: default_container
+layout: default
 ---
-
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="post-header">
+<article class="h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    <p class="cmd"><span class="prompt">$</span> cat posts/{{ page.date | date: "%Y-%m-%d" }}-{{ page.slug | slugify }}.md</p>
     <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
     <div class="post-meta">
-      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        {{ page.date | date: date_format }}
-      </time>
+      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%Y-%m-%d" }}</time>
       {%- assign words = content | number_of_words -%}
       {%- assign minutes = words | divided_by: 200 -%}
-      {%- if minutes < 1 -%}{%- assign minutes = 1 -%}{%- endif -%}
-      <span class="reading-time"> &middot; {{ minutes }} min read</span>
+      {%- if minutes < 1 -%}{%- assign minutes = 1 -%}{%- endif %}
+      <span>{{ minutes }} min read</span>
+      {%- if page.tags.size > 0 %}
+      <span class="tags">
+        {%- for tag in page.tags %}
+        <a class="p-category" href="{{ '/tags/' | append: tag | uri_escape | append: '/' | relative_url }}">#{{ tag | replace: " ", "-" | escape }}</a>
+        {%- endfor %}
+      </span>
+      {%- endif %}
     </div>
-    {%- if page.tags.size > 0 -%}
-      {% include post_tags.html %}
-    {%- endif -%}
   </header>
 
-  <div class="post-content e-content" itemprop="articleBody">
-    {{ content }}
-  </div>
-
-  <nav class="post-nav">
+  <div class="with-aside post-layout">
     <div>
-      {%- if page.previous.url -%}
-        <span class="post-nav-label">Previous</span>
-        <a href="{{ page.previous.url | relative_url }}">{{ page.previous.title }}</a>
-      {%- endif -%}
+      <div class="post-content e-content" itemprop="articleBody">
+        {{ content }}
+      </div>
+
+      {%- if page.previous.url or page.next.url %}
+      <nav class="post-nav" aria-label="More posts">
+        {%- if page.previous.url %}
+        <a href="{{ page.previous.url | relative_url }}"><span class="label">&lt;- previous</span><span class="title">{{ page.previous.title | escape }}</span></a>
+        {%- endif %}
+        {%- if page.next.url %}
+        <a href="{{ page.next.url | relative_url }}"><span class="label">next -&gt;</span><span class="title">{{ page.next.title | escape }}</span></a>
+        {%- endif %}
+      </nav>
+      {%- endif %}
     </div>
-    <div style="text-align: right;">
-      {%- if page.next.url -%}
-        <span class="post-nav-label">Next</span>
-        <a href="{{ page.next.url | relative_url }}">{{ page.next.title }}</a>
-      {%- endif -%}
-    </div>
-  </nav>
+
+    {%- capture toc_links -%}{%- include toc.html html=content h_min=2 h_max=3 sanitize=true skip_no_ids=true -%}{%- endcapture -%}
+    {%- assign toc_count = toc_links | split: "<a " | size | minus: 1 -%}
+    {%- if toc_count >= 2 %}
+    <aside class="side toc" id="toc" aria-label="On this page">
+      <details open>
+        <summary>on this page</summary>
+        <nav>{{ toc_links }}</nav>
+      </details>
+      <p class="toc-progress" id="toc-progress"></p>
+    </aside>
+    {%- endif %}
+  </div>
 </article>
