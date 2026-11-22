@@ -21,7 +21,7 @@ Besides my own projects, I try to give back to the open-source tools I rely on e
     <summary class="contrib-summary">
       <span class="contrib-repo">{{ project.owner }}/<strong>{{ project.name }}</strong></span>
       <span class="contrib-stat" title="{{ project.additions }} additions, {{ project.deletions }} deletions across {{ project.count }} PR{% if project.count != 1 %}s{% endif %}">
-        <span class="contrib-lines"><span class="diff-add">+{{ project.additions_label }}</span> <span class="diff-del">&minus;{{ project.deletions_label }}</span></span>
+        <span class="contrib-lines"><span class="diff-add">+{{ project.additions_label }}</span> <span class="diff-del">-{{ project.deletions_label }}</span></span>
         <span class="diff-bar" aria-hidden="true"><span class="diff-add">{{ project.plus_str }}</span><span class="diff-del">{{ project.minus_str }}</span></span>
       </span>
     </summary>
@@ -30,7 +30,7 @@ Besides my own projects, I try to give back to the open-source tools I rely on e
       <li class="contrib-pr">
         <a class="contrib-pr-title" href="{{ pr.url }}" target="_blank" rel="noopener">{{ pr.title }}</a>
         <span class="contrib-pr-meta">
-          <span class="contrib-lines"><span class="diff-add">+{{ pr.additions_label }}</span> <span class="diff-del">&minus;{{ pr.deletions_label }}</span></span>
+          <span class="contrib-lines"><span class="diff-add">+{{ pr.additions_label }}</span> <span class="diff-del">-{{ pr.deletions_label }}</span></span>
           <span class="contrib-date">{{ pr.date }}</span>
         </span>
       </li>

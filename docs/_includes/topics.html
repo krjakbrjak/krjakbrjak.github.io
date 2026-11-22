@@ -1,0 +1,16 @@
+{%- comment %} Top tags by post count, sorted as "count|name" strings. {% endcomment -%}
+{%- assign topic_entries = "" | split: "" -%}
+{%- for tag in site.tags -%}
+  {%- assign padded = tag[1].size | plus: 1000 -%}
+  {%- assign entry = padded | append: "|" | append: tag[0] -%}
+  {%- assign topic_entries = topic_entries | push: entry -%}
+{%- endfor -%}
+{%- assign topic_entries = topic_entries | sort | reverse -%}
+<p class="side-label">topics</p>
+<div class="topics">
+  {%- for entry in topic_entries limit: 9 %}
+  {%- assign parts = entry | split: "|" %}
+  <a href="{{ '/tags/' | append: parts[1] | uri_escape | append: '/' | relative_url }}"><span>{{ parts[1] | escape }}</span><span>{{ parts[0] | minus: 1000 }}</span></a>
+  {%- endfor %}
+</div>
+<a class="topics-all" href="{{ '/tags/' | relative_url }}">all tags -&gt;</a>

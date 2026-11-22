@@ -1,22 +1,19 @@
 ---
 layout: default
 ---
+{%- assign tagged = site.tags[page.tag] -%}
+<div class="with-aside">
+  <section>
+    <p class="cmd"><span class="prompt">$</span> grep -l "#{{ page.tag | escape }}" posts/*</p>
+    <h1 class="page-title">#{{ page.tag | replace: " ", "-" | escape }}</h1>
 
-<h1 class="page-heading">Posts tagged "{{ page.tag }}"</h1>
+    <h2 class="bar-head">{{ tagged.size }} post{% if tagged.size != 1 %}s{% endif %}</h2>
+    {%- for post in tagged %}
+    {% include post_row.html post=post date_format="%Y-%m-%d" %}
+    {%- endfor %}
+  </section>
 
-<ul class="tag-archive-list">
-  {% for post in site.posts %}
-    {% if post.tags contains page.tag %}
-      <li>
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-        </h3>
-        {%- if post.description -%}
-          <p class="post-description">{{ post.description }}</p>
-        {%- endif -%}
-      </li>
-    {% endif %}
-  {% endfor %}
-</ul>
+  <aside class="side" aria-label="Topics">
+    {% include topics.html %}
+  </aside>
+</div>

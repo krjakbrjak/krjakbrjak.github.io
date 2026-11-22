@@ -34,7 +34,7 @@ linkedin_username: nvakula
 github_username:  krjakbrjak
 
 # Build settings
-theme: minima
+theme: null
 plugins:
   - jekyll-feed
   - jekyll-seo-tag

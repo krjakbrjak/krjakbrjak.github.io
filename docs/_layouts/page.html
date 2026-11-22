@@ -1,0 +1,13 @@
+---
+layout: default
+---
+<article class="page">
+  <header>
+    <p class="cmd"><span class="prompt">$</span> cat {{ page.title | slugify }}.md</p>
+    <h1 class="page-title">{{ page.title | escape }}</h1>
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+</article>

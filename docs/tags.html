@@ -3,16 +3,12 @@ layout: default
 title: "Tags"
 permalink: /tags/
 ---
+{%- assign sorted_tags = site.tags | sort -%}
+<p class="cmd"><span class="prompt">$</span> ls tags/</p>
+<h1 class="page-title">{{ sorted_tags.size }} tags</h1>
 
-<h1 class="page-heading">Tags</h1>
-
-<div class="tag-cloud">
-  {% assign sorted_tags = site.tags | sort %}
-  {% for tag in sorted_tags %}
-    <div class="tag-cloud-item">
-      <a class="tag-pill" href="{{ '/tags/' | append: tag[0] | uri_escape | append: '/' | relative_url }}">
-        {{ tag[0] }} <span style="opacity: 0.6;">({{ tag[1].size }})</span>
-      </a>
-    </div>
-  {% endfor %}
+<div class="tag-index">
+  {%- for tag in sorted_tags %}
+  <a href="{{ '/tags/' | append: tag[0] | uri_escape | append: '/' | relative_url }}"><span>{{ tag[0] | escape }}</span><span>{{ tag[1].size }}</span></a>
+  {%- endfor %}
 </div>
